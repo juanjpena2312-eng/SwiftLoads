@@ -1,0 +1,162 @@
+<section class="negocios-page">
+  <header class="negocios-header">
+    <button class="volver" type="button" (click)="volver.emit()" aria-label="Volver al inicio">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </button>
+    <div>
+      <p class="eyebrow">PANEL DE NEGOCIO</p>
+      <h1>Mis negocios</h1>
+    </div>
+  </header>
+
+  <p class="mensaje exito" *ngIf="mensaje">{{ mensaje }}</p>
+  <p class="mensaje error" *ngIf="error">{{ error }}</p>
+
+  <form class="formulario" (ngSubmit)="guardar()">
+    <div class="formulario-titulo">
+      <ion-icon name="add-outline"></ion-icon>
+      <h2>{{ negocioEditando === null ? 'Registrar negocio' : 'Editar información' }}</h2>
+    </div>
+
+    <label>
+      Nombre del negocio
+      <input [(ngModel)]="formulario.nombre" name="nombre" required maxlength="120" />
+    </label>
+
+    <label>
+      Tipo de negocio
+      <select [(ngModel)]="formulario.subcategoria_id" name="subcategoria" required>
+        <option [ngValue]="0" disabled>Selecciona una categoría</option>
+        <option *ngFor="let subcategoria of subcategorias" [ngValue]="subcategoria.id">
+          {{ subcategoria.nombre }}
+        </option>
+      </select>
+    </label>
+
+    <label>
+      Descripción
+      <textarea [(ngModel)]="formulario.descripcion" name="descripcion" rows="3" maxlength="1000" required></textarea>
+    </label>
+
+    <label>
+      Dirección
+      <input [(ngModel)]="formulario.direccion" name="direccion" maxlength="255" required />
+    </label>
+
+    <div class="campos-dobles">
+      <label>
+        Teléfono
+        <input [(ngModel)]="formulario.telefono" name="telefono" maxlength="30" required />
+      </label>
+   <div class="campo-imagen">
+  <label>
+    Imagen del negocio
+    <input
+      type="file"
+      name="imagen"
+      accept="image/*"
+      (change)="seleccionarImagen($event)"
+      [required]="negocioEditando === null"
+    />
+  </label>
+
+  <div *ngIf="imagenPreview" class="imagen-preview">
+    <img
+      [src]="imagenPreview"
+      alt="Vista previa del negocio"
+      class="preview-imagen"
+    />
+
+    <ion-button
+      type="button"
+      fill="clear"
+      color="danger"
+      (click)="quitarImagen()"
+    >
+      Quitar imagen
+    </ion-button>
+  </div>
+</div>
+</div>
+
+    
+
+    <div class="campos-dobles">
+      <label>
+        Tiempo estimado (min)
+        <input [(ngModel)]="formulario.tiempo_min" name="tiempo" type="number" min="1" max="240" required />
+      </label>
+      <label>
+        Costo de envío
+        <input [(ngModel)]="formulario.costo_envio" name="costo" type="number" min="0" step="0.01" required />
+      </label>
+    </div>
+
+    <label class="disponibilidad">
+      <input [(ngModel)]="formulario.disponible" name="disponible" type="checkbox" />
+      Mostrar como disponible en el catálogo
+    </label>
+
+    <div class="acciones-formulario">
+      <ion-button type="submit" shape="round" [disabled]="guardando || subcategorias.length === 0">
+        {{ guardando ? 'Guardando...' : negocioEditando === null ? 'Registrar negocio' : 'Guardar cambios' }}
+      </ion-button>
+      <ion-button
+        *ngIf="negocioEditando !== null"
+        type="button"
+        fill="clear"
+        color="medium"
+        (click)="cancelarEdicion()">
+        Cancelar
+      </ion-button>
+    </div>
+  </form>
+
+  <div class="lista-titulo">
+    <div>
+      <h2>Negocios registrados</h2>
+      <p>Administra sus datos y disponibilidad.</p>
+    </div>
+    <span>{{ negocios.length }}</span>
+  </div>
+
+  <p class="estado" *ngIf="cargando">Cargando tus negocios...</p>
+  <div class="vacio" *ngIf="!cargando && negocios.length === 0">
+    <ion-icon name="storefront-outline"></ion-icon>
+    <p>Aún no has registrado negocios.</p>
+  </div>
+
+  <article class="negocio-card" *ngFor="let negocio of negocios">
+    <div class="negocio-detalle">
+      <div class="icono-negocio"><ion-icon name="storefront-outline"></ion-icon></div>
+      <div>
+        <div class="nombre-linea">
+          <h3>{{ negocio.nombre }}</h3>
+          <span class="estado-disponibilidad" [class.pausado]="!negocio.disponible">
+            {{ negocio.disponible ? 'Disponible' : 'Pausado' }}
+          </span>
+        </div>
+        <p>{{ negocio.descripcion || 'Sin descripción' }}</p>
+        <small>{{ negocio.direccion || 'Sin dirección' }}</small>
+        <div class="datos-negocio">
+          <span>{{ negocio.tiempo_min }} min</span>
+          <span>Envío {{ negocio.costo_envio | currency:'USD':'symbol':'1.2-2' }}</span>
+          <span>★ {{ negocio.calificacion | number:'1.1-1' }} ({{ negocio.total_resenas }} reseñas)</span>
+        </div>
+      </div>
+    </div>
+    <div class="acciones-negocio">
+      <ion-button fill="clear" size="small" (click)="editar(negocio)">
+        <ion-icon slot="start" name="create-outline"></ion-icon>
+        Editar
+      </ion-button>
+      <ion-button
+        fill="outline"
+        size="small"
+        [color]="negocio.disponible ? 'medium' : 'success'"
+        (click)="alternarDisponibilidad(negocio)">
+        {{ negocio.disponible ? 'Pausar' : 'Activar' }}
+      </ion-button>
+    </div>
+  </article>
+</section>

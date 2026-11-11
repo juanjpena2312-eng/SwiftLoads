@@ -1,0 +1,290 @@
+.negocios-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 22px 18px 36px;
+  color: #17213d;
+}
+
+.negocios-header,
+.formulario-titulo,
+.lista-titulo,
+.nombre-linea,
+.negocio-detalle,
+.datos-negocio,
+.acciones-negocio,
+.acciones-formulario {
+  display: flex;
+  align-items: center;
+}
+
+.negocios-header {
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.volver {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: #eaf0ff;
+  color: #3558b8;
+  font-size: 20px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: #65708b;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: 25px;
+}
+
+.formulario {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid #e8ebf3;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 26px rgba(15, 27, 61, 0.05);
+}
+
+.formulario-titulo {
+  gap: 9px;
+  color: #3558b8;
+}
+
+.formulario-titulo h2,
+.lista-titulo h2 {
+  margin-bottom: 0;
+  font-size: 18px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  color: #414c68;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+input:not([type='checkbox']),
+select,
+textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid #dfe4ef;
+  border-radius: 10px;
+  background: #fff;
+  color: #17213d;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.campos-dobles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.disponibilidad {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.disponibilidad input {
+  width: 18px;
+  height: 18px;
+  accent-color: #3c65c8;
+}
+
+.acciones-formulario {
+  gap: 8px;
+}
+
+.lista-titulo {
+  justify-content: space-between;
+  margin: 28px 0 14px;
+}
+
+.lista-titulo p {
+  margin: 5px 0 0;
+  color: #71809b;
+  font-size: 13px;
+}
+
+.lista-titulo > span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  background: #eaf0ff;
+  color: #3558b8;
+  font-weight: 700;
+}
+
+.negocio-card {
+  margin-bottom: 12px;
+  padding: 16px;
+  border: 1px solid #e8ebf3;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.negocio-detalle {
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.icono-negocio {
+  display: grid;
+  flex: 0 0 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 13px;
+  background: #edf2ff;
+  color: #3558b8;
+  font-size: 21px;
+}
+
+.nombre-linea {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nombre-linea h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.estado-disponibilidad {
+  padding: 4px 8px;
+  border-radius: 20px;
+  background: #e4f7ed;
+  color: #21804b;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.estado-disponibilidad.pausado {
+  background: #f0f1f5;
+  color: #65708b;
+}
+
+.negocio-detalle p {
+  margin: 6px 0 3px;
+  color: #596680;
+  font-size: 13px;
+}
+
+.negocio-detalle small {
+  color: #7a849a;
+}
+
+.datos-negocio {
+  flex-wrap: wrap;
+  gap: 7px 14px;
+  margin-top: 9px;
+  color: #4b5875;
+  font-size: 12px;
+}
+
+.acciones-negocio {
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.mensaje,
+.estado,
+.vacio {
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.mensaje.exito {
+  background: #e4f7ed;
+  color: #21804b;
+}
+
+.mensaje.error {
+  background: #fff0ef;
+  color: #b33a32;
+}
+
+.estado,
+.vacio {
+  color: #65708b;
+  text-align: center;
+}
+
+.vacio ion-icon {
+  font-size: 26px;
+}
+
+@media (max-width: 520px) {
+  .campos-dobles {
+    grid-template-columns: 1fr;
+  }
+
+  .formulario {
+    padding: 16px;
+  }
+}
+.campos-dobles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.campo-imagen {
+  min-width: 0;
+  width: 100%;
+}
+
+.campo-imagen input[type="file"] {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.imagen-preview {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.preview-imagen {
+  display: block;
+  width: 100%;
+  max-width: 250px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+@media (max-width: 600px) {
+  .campos-dobles {
+    grid-template-columns: 1fr;
+  }
+}

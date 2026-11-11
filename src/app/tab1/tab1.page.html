@@ -29,8 +29,17 @@
   <!-- ===== Inicio ===== -->
   @if (pantalla === 'inicio') {
     <app-home [nombreUsuario]="nombreUsuario" [categorias]="categorias"
-      [mensajeError]="mensajeError" (categoriaSeleccionada)="seleccionarCategoria($event)">
+      [mensajeError]="mensajeError" (categoriaSeleccionada)="seleccionarCategoria($event)"
+      (administrarNegocios)="abrirNegocios()">
     </app-home>
+  }
+  
+  <!-- ===== Administración de negocios ===== -->
+  @if (pantalla === 'negocios') {
+    <app-negocios
+      [usuarioId]="obtenerUsuarioId()"
+      (volver)="volverDesdeNegocios()">
+    </app-negocios>
   }
 
   <!-- ===== Nivel 2: tipos ===== -->

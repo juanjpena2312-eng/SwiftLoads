@@ -62,6 +62,14 @@ export class RestaurantesComponent {
       return nombre;
     }
 
+    if (/^https?:\/\//i.test(nombre)) {
+      return nombre;
+    }
+
+    if (nombre.startsWith('/img/')) {
+      return `http://localhost:3000${nombre}`;
+    }
+
     return `assets/Restaurantes/${nombre.replace(/^\/+/, '')}`;
   }
 

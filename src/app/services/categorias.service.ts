@@ -30,14 +30,29 @@ export interface Subcategoria {
 
 export interface Restaurante {
   id: number;
+  subcategoria_id?: number;
   nombre: string;
+  descripcion?: string | null;
   imagen: string | null;
+  direccion?: string | null;
+  telefono?: string | null;
   tiempo_min: number;
   costo_envio: number;
+  disponible?: boolean;
   calificacion: number;
   total_resenas: number;
 }
-
+export interface NegocioInput {
+  nombre: string;
+  descripcion: string;
+  imagen?: string | File | null;
+  direccion: string;
+  telefono: string;
+  tiempo_min: number;
+  costo_envio: number;
+  subcategoria_id: number;
+  disponible: boolean;
+}
 export interface Resena {
   id: number;
   calificacion: number;
@@ -136,4 +151,61 @@ export class CategoriasService {
       )
     );
   }
+
+  obtenerMisNegocios(usuarioId: number): Promise<Restaurante[]> {
+    return firstValueFrom(
+      this.http.get<Restaurante[]>(`${API}/negocios`, {
+        params: { usuario_id: usuarioId }
+      })
+    );
+  }
+
+  crearNegocio(usuarioId: number, negocio: NegocioInput, imagen?: File | null): Promise<unknown> {
+  const datos = new FormData();
+
+  datos.append('usuario_id', String(usuarioId));
+  datos.append('nombre', negocio.nombre);
+  datos.append('descripcion', negocio.descripcion || '');
+  datos.append('direccion', negocio.direccion || '');
+  datos.append('telefono', negocio.telefono || '');
+  datos.append('tiempo_min', String(negocio.tiempo_min));
+  datos.append('costo_envio', String(negocio.costo_envio));
+  datos.append('subcategoria_id', String(negocio.subcategoria_id));
+  datos.append('disponible', String(negocio.disponible));
+
+  if (imagen) {
+    datos.append('imagen', imagen);
+  }
+
+  return firstValueFrom(
+    this.http.post(`${API}/negocios`, datos)
+  );
+}
+
+  actualizarNegocio(
+  negocioId: number,
+  usuarioId: number,
+  negocio: NegocioInput,
+  imagen?: File | null
+): Promise<unknown> {
+  const datos = new FormData();
+
+  datos.append('usuario_id', String(usuarioId));
+  datos.append('nombre', negocio.nombre);
+  datos.append('descripcion', negocio.descripcion || '');
+  datos.append('direccion', negocio.direccion || '');
+  datos.append('telefono', negocio.telefono || '');
+  datos.append('tiempo_min', String(negocio.tiempo_min));
+  datos.append('costo_envio', String(negocio.costo_envio));
+  datos.append('subcategoria_id', String(negocio.subcategoria_id));
+  datos.append('disponible', String(negocio.disponible));
+
+  if (imagen) {
+    datos.append('imagen', imagen);
+  }
+
+  return firstValueFrom(
+    this.http.put(`${API}/negocios/${negocioId}`, datos)
+  );
+}
 }

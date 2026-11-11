@@ -31,6 +31,15 @@
     </div>
   </div>
 
+   <button class="negocio-banner" type="button" (click)="administrarNegocios.emit()">
+    <span class="negocio-icono"><ion-icon name="storefront-outline"></ion-icon></span>
+    <span>
+      <strong>¿Tienes un negocio?</strong>
+      <small>Registra tu negocio y administra su disponibilidad.</small>
+    </span>
+    <span class="negocio-flecha">›</span>
+  </button>
+
   <ion-grid class="category-grid">
     <ion-row>
       <ion-col size="6" size-md="4" *ngFor="let categoria of categoriasFiltradas">

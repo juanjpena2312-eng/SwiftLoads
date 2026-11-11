@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonSearchbar, IonGrid, IonRow, IonCol, IonIcon } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { personOutline, searchOutline, locationOutline } from 'ionicons/icons';
-import { Categoria, CategoryCardComponent } from '../category-card/category-card.component';
+import { personOutline, searchOutline, locationOutline, storefrontOutline } from 'ionicons/icons';
+import { Categoria, CategoryCardComponent } from '../../../../../SwiftLoads-main/SwiftLoads-main/src/app/components/category-card/category-card.component';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +18,12 @@ export class HomeComponent {
   @Input() categorias: Categoria[] = [];
   @Input() mensajeError = '';
   @Output() categoriaSeleccionada = new EventEmitter<Categoria>();
+  @Output() administrarNegocios = new EventEmitter<void>();
 
   textoBusqueda = '';
 
   constructor() {
-    addIcons({ personOutline, searchOutline, locationOutline });
+    addIcons({ personOutline, searchOutline, locationOutline, storefrontOutline });
   }
 
   get categoriasFiltradas(): Categoria[] {
@@ -30,7 +31,7 @@ export class HomeComponent {
     if (!texto) return this.categorias;
     return this.categorias.filter(
       c => c.nombre.toLowerCase().includes(texto) ||
-           c.descripcion.toLowerCase().includes(texto)
+      c.descripcion.toLowerCase().includes(texto)
     );
   }
 }

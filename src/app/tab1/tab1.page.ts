@@ -32,6 +32,7 @@ import {
 } from '../services/categorias.service';
 
 import { EstadoSwiftLoadService } from '../services/estado-swiftload.service';
+import { NegociosComponent } from '../components/negocios/negocios.component';
 
 type Pantalla =
   | 'bienvenida'
@@ -44,7 +45,8 @@ type Pantalla =
   | 'ayuda'
   | 'pedidos'
   | 'pedido'
-  | 'ticket'; // 👈 2. Añadir 'ticket' a los tipos de pantalla permitidos
+  | 'ticket'
+  | 'negocios';
 
 type Origen = 'inicio' | 'subcategorias' | 'restaurantes';
 
@@ -66,6 +68,7 @@ type Origen = 'inicio' | 'subcategorias' | 'restaurantes';
     SubcategoriasComponent,
     RestaurantesComponent,
     ProductosComponent,
+    NegociosComponent,
     AyudaPage,
     HistorialComponent,
     PedidoComponent,
@@ -124,7 +127,8 @@ export class Tab1Page implements OnInit {
       'ayuda',
       'pedidos',
       'pedido',
-      'ticket'
+      'ticket',
+      'negocios'
     ].includes(this.pantalla);
   }
 
@@ -236,6 +240,22 @@ export class Tab1Page implements OnInit {
   mostrarRegistro(): void {
     this.mensajeError = '';
     this.pantalla = 'registro';
+  }
+
+  abrirNegocios(): void {
+    this.pantalla = 'negocios';
+    this.guardarEstado();
+    this.cdr.detectChanges();
+  }
+  
+  obtenerUsuarioId(): number {
+    return this.auth.obtenerSesion()?.id || 0;
+  }
+  
+  volverDesdeNegocios(): void {
+    this.pantalla = 'inicio';
+    this.guardarEstado();
+    this.cdr.detectChanges();
   }
 
   async iniciarSesion(datos: { correo: string; contrasena: string }): Promise<void> {
